@@ -6,7 +6,7 @@
   <title>Bärenpark – Lernprodukte</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;1,400&family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -20,39 +20,102 @@
       --black:     #1A1A1A;
       --white:     #FFFFFF;
       --border:    #D8D8D8;
-      --fh: 'Syne', sans-serif;
-      --fb: 'Plus Jakarta Sans', sans-serif;
+      --fh: 'Barlow Condensed', sans-serif;
+      --fs: 'Lora', serif;
+      --fb: 'Source Sans 3', sans-serif;
       --nav: 60px;
-      --w: 800px;
-      --r: 10px;
-      --rl: 18px;
+      --r:   10px;
+      --rl:  18px;
     }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; overflow-x: hidden; }
     body {
       font-family: var(--fb);
       background: var(--bg);
       color: var(--black);
       min-height: 100vh;
+      overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
     }
 
+    /* ── LAYOUT: Alle Container explizit ──────────────────── */
+    .ni {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+      display: flex;
+      align-items: center;
+    }
+    main {
+      display: block;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+    }
+    footer {
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 960px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 2.5rem;
+      padding-right: 2.5rem;
+      padding-top: 1.75rem;
+      padding-bottom: 1.75rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    @media (max-width: 768px) {
+      .ni, main, footer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .ni, main, footer {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+      }
+    }
+
+
     /* NAV */
     nav {
-      position: sticky; top: 0; z-index: 100;
-      background: var(--black); height: var(--nav);
-      display: flex; align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--black);
+      height: var(--nav);
+      display: flex;
+      align-items: center;
     }
-    .ni {
-      width: 100%; max-width: var(--w); margin: 0 auto;
-      padding: 0 1.25rem;
-      display: flex; align-items: center;
+
+
+      display: flex; flex-direction: column; line-height: 1;
+      color: var(--white); text-decoration: none;
+      padding-right: 1.5rem; white-space: nowrap; flex-shrink: 0;
+      gap: 1px;
     }
-    .brand {
-      font-family: var(--fh); font-weight: 800; font-size: 1.1rem;
-      letter-spacing: -.02em; color: var(--white); text-decoration: none;
-      padding-right: 1.25rem; white-space: nowrap; flex-shrink: 0;
+    .brand-sub {
+      font-family: var(--fs); font-style: italic; font-size: .65rem;
+      font-weight: 400; color: var(--gray); letter-spacing: .01em;
     }
-    .brand em { color: var(--lime); font-style: normal; }
+    .brand-title {
+      font-family: var(--fh); font-weight: 800; font-size: 1.25rem;
+      letter-spacing: .03em; text-transform: uppercase; color: var(--white);
+    }
+    .brand-title em { color: var(--lime); font-style: normal; }
     .tabs {
       display: flex; align-items: center;
       overflow-x: auto; scrollbar-width: none; flex: 1;
@@ -71,7 +134,7 @@
     .tab.on { color: var(--lime); border-bottom-color: var(--lime); font-weight: 600; }
 
     /* MAIN */
-    main { max-width: var(--w); margin: 0 auto; padding: 0 1.25rem; }
+    main { display: block; }
     .view { display: none; padding-bottom: 4rem; }
     .view.on { display: block; }
     .lbl {
@@ -82,17 +145,15 @@
     /* HOME */
     .hero { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
     .kicker {
-      display: inline-flex; align-items: center; gap: .5rem;
-      font-size: .7rem; font-weight: 700; letter-spacing: .1em;
-      text-transform: uppercase; color: var(--gray); margin-bottom: .8rem;
+      display: block;
+      font-family: var(--fs); font-style: italic; font-size: .9rem;
+      font-weight: 400; color: var(--gray); margin-bottom: .5rem;
     }
-    .kicker::before {
-      content: ''; display: block; width: 22px; height: 3px;
-      background: var(--lime); border-radius: 2px;
-    }
+    .kicker::before { display: none; }
     .hero h1 {
-      font-family: var(--fh); font-size: clamp(1.8rem,5vw,2.75rem);
-      font-weight: 800; line-height: 1.1; letter-spacing: -.03em; margin-bottom: 1rem;
+      font-family: var(--fh); font-size: clamp(2.2rem,6vw,3.5rem);
+      font-weight: 800; line-height: 1.0; letter-spacing: .03em;
+      text-transform: uppercase; margin-bottom: 1rem;
     }
     .hero p { font-size: 1rem; color: var(--gray); max-width: 540px; line-height: 1.75; }
 
@@ -123,27 +184,39 @@
     .idesc { font-size: .73rem; color: var(--gray); }
 
     .kgrid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(130px,1fr));
-      gap: .75rem; margin-bottom: 2rem;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem; margin-bottom: 2rem;
+    }
+    @media (max-width: 600px) {
+      .kgrid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 380px) {
+      .kgrid { grid-template-columns: repeat(2, 1fr); }
     }
     .kbtn {
       background: var(--white); border: 2px solid transparent;
-      border-radius: var(--r); padding: 1rem .75rem;
-      display: flex; flex-direction: column; align-items: center; gap: .55rem;
+      border-radius: var(--rl); padding: 1.25rem .75rem 1rem;
+      display: flex; flex-direction: column; align-items: center; gap: .6rem;
       cursor: pointer; font-family: var(--fb);
-      transition: border-color .15s, transform .12s;
+      transition: border-color .15s, transform .12s, box-shadow .15s;
     }
-    .kbtn:hover { border-color: var(--lime); transform: translateY(-2px); }
+    .kbtn:hover {
+      border-color: var(--lime);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(0,0,0,.1);
+    }
     .av {
-      width: 52px; height: 52px; border-radius: 50%;
+      width: 64px; height: 64px; border-radius: 50%;
       overflow: hidden; background: var(--bg);
-      border: 2px solid var(--border);
+      border: 3px solid var(--border);
+      flex-shrink: 0;
     }
     .av img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .kname { font-size: .8rem; font-weight: 600; color: var(--black); }
+    .kname { font-family: var(--fh); font-size: .95rem; font-weight: 700; letter-spacing: .02em; color: var(--black); text-transform: uppercase; }
     .zb {
-      font-size: .62rem; font-weight: 700; letter-spacing: .06em;
-      text-transform: uppercase; padding: .18rem .55rem; border-radius: 999px;
+      font-size: .6rem; font-weight: 700; letter-spacing: .07em;
+      text-transform: uppercase; padding: .22rem .6rem; border-radius: 999px;
     }
     .z1 { background: #E5F7FA; color: var(--teal); }
     .z2 { background: #FDF0F0; color: var(--coral); }
@@ -162,8 +235,8 @@
     }
     .avlg img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .kinfo h2 {
-      font-family: var(--fh); font-size: 1.7rem; font-weight: 800;
-      letter-spacing: -.02em; line-height: 1.2;
+      font-family: var(--fh); font-size: 2rem; font-weight: 800;
+      letter-spacing: .03em; text-transform: uppercase; line-height: 1.1;
     }
     .kinfo .zb { margin-top: .3rem; display: inline-block; }
 
@@ -229,8 +302,8 @@
     /* KRITERIEN */
     .phead { padding: 2.5rem 0 2rem; border-bottom: 1px solid var(--border); margin-bottom: 1.75rem; }
     .phead h2 {
-      font-family: var(--fh); font-size: clamp(1.5rem,4vw,2rem);
-      font-weight: 800; letter-spacing: -.02em;
+      font-family: var(--fh); font-size: clamp(1.8rem,4vw,2.5rem);
+      font-weight: 800; letter-spacing: .03em; text-transform: uppercase;
     }
     .phead p { color: var(--gray); font-size: .95rem; margin-top: .4rem; }
 
@@ -263,21 +336,80 @@
     .kr p { font-size: .855rem; color: var(--gray); line-height: 1.6; }
 
     /* FOOTER */
-    footer {
-      border-top: 1px solid var(--border); padding: 1.75rem 1.25rem;
-      max-width: var(--w); margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 1rem;
-    }
-    .flogo {
-      font-family: var(--fh); font-weight: 800; font-size: 1.1rem;
-    }
-    .flogo em { color: var(--lime); font-style: normal; }
+    .flogo { display: flex; flex-direction: column; line-height: 1; gap: 1px; }
+    .flogo-sub { font-family: var(--fs); font-style: italic; font-size: .7rem; color: var(--gray); }
+    .flogo-name { font-family: var(--fh); font-weight: 800; font-size: 1rem; letter-spacing: .04em; text-transform: uppercase; }
     footer small { font-size: .75rem; color: var(--gray); }
+
+    /* DROPDOWN */
+    .mehr-wrap { position: relative; flex-shrink: 0; }
+    .mehr-btn {
+      display: inline-flex; align-items: center; gap: .35rem;
+      padding: 0 .85rem; height: var(--nav);
+      font-family: var(--fb); font-size: .8rem; font-weight: 600;
+      color: var(--gray); background: none; border: none;
+      border-bottom: 3px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .15s;
+    }
+    .mehr-btn:hover, .mehr-btn.on { color: var(--lime); }
+    .mehr-btn.on { border-bottom-color: var(--lime); }
+    .mehr-btn svg { transition: transform .2s; }
+    .mehr-btn.open svg { transform: rotate(180deg); }
+    .dropdown {
+      display: none; position: absolute; top: calc(var(--nav) + 2px); right: 0;
+      background: var(--white); border: 1px solid var(--border);
+      border-radius: var(--r); min-width: 220px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.12); z-index: 200;
+      overflow: hidden;
+    }
+    .dropdown.open { display: block; }
+    .dd-item {
+      display: flex; align-items: center; gap: .65rem;
+      padding: .75rem 1rem; font-size: .85rem; font-weight: 500;
+      color: var(--black); background: none; border: none;
+      width: 100%; text-align: left; cursor: pointer;
+      border-bottom: 1px solid var(--border);
+      transition: background .12s;
+    }
+    .dd-item:last-child { border-bottom: none; }
+    .dd-item:hover { background: var(--bg); }
+    .dd-item svg { flex-shrink: 0; color: var(--gray); }
+
+    /* HINWEIS / INFO PAGES */
+    .infopage { padding: 2.5rem 0 2rem; }
+    .infopage .kicker { margin-bottom: .4rem; }
+    .infopage h2 {
+      font-family: var(--fh); font-size: clamp(2rem,5vw,3rem);
+      font-weight: 800; letter-spacing: .03em; text-transform: uppercase;
+      line-height: 1; margin-bottom: .3rem;
+    }
+    .infopage .sub {
+      font-family: var(--fs); font-style: italic; font-size: 1rem;
+      color: var(--gray); margin-bottom: 2rem;
+      padding-bottom: 1.75rem; border-bottom: 1px solid var(--border);
+    }
+    .infopage h3 {
+      font-family: var(--fh); font-size: 1.3rem; font-weight: 700;
+      letter-spacing: .04em; text-transform: uppercase;
+      margin: 1.75rem 0 .6rem;
+    }
+    .infopage h3:first-of-type { margin-top: 0; }
+    .infopage p { font-size: 1rem; line-height: 1.75; color: var(--black); margin-bottom: 1rem; }
+    .infopage ul { padding-left: 1.4rem; margin-bottom: 1rem; }
+    .infopage ul li { font-size: 1rem; line-height: 1.75; margin-bottom: .3rem; }
+    .raster-img-wrap {
+      width: 100%; overflow-x: auto; margin-bottom: 1.75rem;
+      border-radius: var(--r); border: 1px solid var(--border);
+      background: var(--white);
+    }
+    .raster-img-wrap img {
+      display: block; max-width: 100%; height: auto;
+      border-radius: var(--r);
+    }
 
     /* MOBILE */
     @media (max-width: 520px) {
-      .brand { font-size: 1rem; padding-right: .6rem; }
       .tab { padding: 0 .6rem; font-size: .76rem; }
       .hero { padding: 2rem 0 1.75rem; }
       .khead { flex-direction: column; text-align: center; }
@@ -289,7 +421,10 @@
 
 <nav>
   <div class="ni">
-    <a class="brand" href="#" onclick="sv('home');return false;">Bären<em>park</em></a>
+    <a class="brand" href="#" onclick="sv('home');return false;">
+      <span class="brand-sub">Pädagogische Hochschule Graubünden</span>
+      <span class="brand-title">Bären<em>park</em></span>
+    </a>
     <div class="tabs">
       <button class="tab on"  data-v="home"      onclick="sv('home')">Übersicht</button>
       <button class="tab"     data-v="kind-1"    onclick="sv('kind-1')">Kind 1</button>
@@ -299,10 +434,32 @@
       <button class="tab"     data-v="kind-5"    onclick="sv('kind-5')">Kind 5</button>
       <button class="tab"     data-v="kriterien" onclick="sv('kriterien')">Kriterien</button>
     </div>
+    <div class="mehr-wrap">
+      <button class="mehr-btn" id="mehr-btn" onclick="toggleDD()" aria-haspopup="true" aria-expanded="false">
+        Mehr
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="dropdown" id="dropdown">
+        <button class="dd-item" onclick="sv('hinweis-1');closeDD()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          Hinweis 1: Ausgangslage
+        </button>
+        <button class="dd-item" onclick="sv('hinweis-2');closeDD()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          Hinweis 2: Lernziele
+        </button>
+        <button class="dd-item" onclick="sv('hinweis-3');closeDD()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+          Hinweis 3: Kompetenzen
+        </button>
+        <button class="dd-item" onclick="sv('ueber');closeDD()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 13h6M9 17h4"/></svg>
+          Über diese App
+        </button>
+      </div>
+    </div>
   </div>
 </nav>
-
-<main>
 
 <!-- ═══════════════════════ HOME ══════════════════════════ -->
 <div class="view on" id="view-home">
@@ -507,25 +664,87 @@
     <button class="ztab z3"    onclick="sr(3)">Zyklus 3</button>
   </div>
 
-  <!-- RASTER 1 — ✏️ HIER KRITERIEN ZYKLUS 1 EINFÜGEN -->
+  <!-- RASTER 1 -->
   <div class="raster on" id="r1">
-    <div class="kr"><div class="krn c1">1</div><div><h3>Kriterium 1</h3><p>Beschreibung … (Zyklus 1)</p></div></div>
-    <div class="kr"><div class="krn c1">2</div><div><h3>Kriterium 2</h3><p>Beschreibung …</p></div></div>
-    <div class="kr"><div class="krn c1">3</div><div><h3>Kriterium 3</h3><p>Beschreibung …</p></div></div>
+    <div class="raster-img-wrap">
+      <img src="raster/Zyklus_1.png" alt="Beurteilungsraster Zyklus 1">
+    </div>
   </div>
 
-  <!-- RASTER 2 — ✏️ HIER KRITERIEN ZYKLUS 2 EINFÜGEN -->
+  <!-- RASTER 2 -->
   <div class="raster" id="r2">
-    <div class="kr"><div class="krn c2">1</div><div><h3>Kriterium 1</h3><p>Beschreibung … (Zyklus 2)</p></div></div>
-    <div class="kr"><div class="krn c2">2</div><div><h3>Kriterium 2</h3><p>Beschreibung …</p></div></div>
-    <div class="kr"><div class="krn c2">3</div><div><h3>Kriterium 3</h3><p>Beschreibung …</p></div></div>
+    <div class="raster-img-wrap">
+      <img src="raster/Zyklus_2.png" alt="Beurteilungsraster Zyklus 2">
+    </div>
   </div>
 
-  <!-- RASTER 3 — ✏️ HIER KRITERIEN ZYKLUS 3 EINFÜGEN -->
+  <!-- RASTER 3 -->
   <div class="raster" id="r3">
-    <div class="kr"><div class="krn c3">1</div><div><h3>Kriterium 1</h3><p>Beschreibung … (Zyklus 3)</p></div></div>
-    <div class="kr"><div class="krn c3">2</div><div><h3>Kriterium 2</h3><p>Beschreibung …</p></div></div>
-    <div class="kr"><div class="krn c3">3</div><div><h3>Kriterium 3</h3><p>Beschreibung …</p></div></div>
+    <div class="raster-img-wrap">
+      <img src="raster/Zyklus_3.png" alt="Beurteilungsraster Zyklus 3">
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ HINWEIS 1: AUSGANGSLAGE ══════════════ -->
+<div class="view" id="view-hinweis-1">
+  <div class="infopage">
+    <div class="kicker">Pädagogische Hochschule Graubünden</div>
+    <h2>Hinweis 1</h2>
+    <p class="sub">Ausgangslage &amp; Auftrag</p>
+    <h3>Ausgangslage</h3>
+    <p>Nach Graubünden sind schon öfters Bären eingewandert, was teilweise zu problematischen Situationen mit den Menschen geführt hat. In den letzten Jahren wurden deshalb schon mehrere Bären abgeschossen. Als Alternative für diese Bären könnte mit den Schülerinnen und Schülern über die Errichtung eines Bärenparks im Berggebiet diskutiert werden, in dem Besucher etwas über den Bären erfahren können.</p>
+    <h3>Auftrag</h3>
+    <p>Entwickle ein für Bären möglichst passendes Zuhause und stelle dieses so dar, dass andere deine Überlegungen nachvollziehen können.</p>
+  </div>
+</div>
+
+<!-- ═══════════════ HINWEIS 2: LERNZIELE ═════════════════ -->
+<div class="view" id="view-hinweis-2">
+  <div class="infopage">
+    <div class="kicker">Pädagogische Hochschule Graubünden</div>
+    <h2>Hinweis 2</h2>
+    <p class="sub">Lernziele für die drei Zyklen</p>
+    <h3>Zyklus 1</h3>
+    <p>Die Schülerinnen und Schüler können einen Bärenpark entwickeln, der die natürlichen Bedürfnisse des Bären berücksichtigt.</p>
+    <h3>Zusatzziel für Zyklus 2</h3>
+    <p>…und in dem die Besucherinnen und Besucher sich über den Bären informieren können.</p>
+    <h3>Zusatzziel für Zyklus 3</h3>
+    <p>…und stelle die längerfristige Bedeutung des Vorhabens dar.</p>
+  </div>
+</div>
+
+<!-- ═══════════════ HINWEIS 3: KOMPETENZEN ═══════════════ -->
+<div class="view" id="view-hinweis-3">
+  <div class="infopage">
+    <div class="kicker">Pädagogische Hochschule Graubünden</div>
+    <h2>Hinweis 3</h2>
+    <p class="sub">Kompetenzraster</p>
+    <h3>Zyklus 1</h3>
+    <div class="raster-img-wrap">
+      <img src="raster/Zyklus_1.png" alt="Beurteilungsraster Zyklus 1">
+    </div>
+    <h3>Zyklus 2</h3>
+    <div class="raster-img-wrap">
+      <img src="raster/Zyklus_2.png" alt="Beurteilungsraster Zyklus 2">
+    </div>
+    <h3>Zyklus 3</h3>
+    <div class="raster-img-wrap">
+      <img src="raster/Zyklus_3.png" alt="Beurteilungsraster Zyklus 3">
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ ÜBER DIESE APP ═══════════════════════ -->
+<div class="view" id="view-ueber">
+  <div class="infopage">
+    <div class="kicker">Pädagogische Hochschule Graubünden</div>
+    <h2>Über diese App</h2>
+    <p class="sub">Kontext &amp; Hintergründe</p>
+    <h3>Kontext</h3>
+    <p>Die Bärenpark-Aufgabe wurde im Kontext der Weiterbildungen zur Einführung des Lehrplan 21 im Kanton Graubünden durch die Pädagogische Hochschule Graubünden entwickelt.</p>
+    <p>Sie diente als Einstiegsauftrag in den zweiten Tag unter dem Titel «Diagnose – fördern – beurteilen».</p>
+    <p>Die fünf Beispiele entstanden nicht in echten Lernsituationen, aber unter vergleichbaren Bedingungen.</p>
   </div>
 </div>
 
@@ -533,11 +752,31 @@
 
 <footer>
   <!-- ✏️ PHGR Logo: <img src="bilder/phgr_logo.png" alt="PHGR" style="height:28px"> -->
-  <div class="flogo"><em>ph</em>GR</div>
+  <div class="flogo">
+    <span class="flogo-sub">Pädagogische Hochschule Graubünden</span>
+    <span class="flogo-name">PHGR</span>
+  </div>
   <small>Pädagogische Hochschule Graubünden</small>
 </footer>
 
 <script>
+// Dropdown
+function toggleDD(){
+  const dd = document.getElementById('dropdown');
+  const btn = document.getElementById('mehr-btn');
+  const open = dd.classList.toggle('open');
+  btn.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open);
+}
+function closeDD(){
+  document.getElementById('dropdown').classList.remove('open');
+  document.getElementById('mehr-btn').classList.remove('open');
+  document.getElementById('mehr-btn').setAttribute('aria-expanded','false');
+}
+document.addEventListener('click', e => {
+  if(!document.querySelector('.mehr-wrap').contains(e.target)) closeDD();
+});
+
 // Navigation
 function sv(id) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('on'));
