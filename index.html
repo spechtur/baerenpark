@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bärenpark – Lernprodukte</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --lime:      #C8D300;
+      --lime-dk:   #9EA500;
+      --teal:      #28B2C7;
+      --coral:     #ED6B6A;
+      --bg:        #EDEDED;
+      --gray:      #878787;
+      --black:     #1A1A1A;
+      --white:     #FFFFFF;
+      --border:    #D8D8D8;
+      --fh: 'Syne', sans-serif;
+      --fb: 'Plus Jakarta Sans', sans-serif;
+      --nav: 60px;
+      --w: 800px;
+      --r: 10px;
+      --rl: 18px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--fb);
+      background: var(--bg);
+      color: var(--black);
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: var(--black); height: var(--nav);
+      display: flex; align-items: center;
+    }
+    .ni {
+      width: 100%; max-width: var(--w); margin: 0 auto;
+      padding: 0 1.25rem;
+      display: flex; align-items: center;
+    }
+    .brand {
+      font-family: var(--fh); font-weight: 800; font-size: 1.1rem;
+      letter-spacing: -.02em; color: var(--white); text-decoration: none;
+      padding-right: 1.25rem; white-space: nowrap; flex-shrink: 0;
+    }
+    .brand em { color: var(--lime); font-style: normal; }
+    .tabs {
+      display: flex; align-items: center;
+      overflow-x: auto; scrollbar-width: none; flex: 1;
+    }
+    .tabs::-webkit-scrollbar { display: none; }
+    .tab {
+      display: inline-flex; align-items: center;
+      padding: 0 .85rem; height: var(--nav);
+      font-family: var(--fb); font-size: .8rem; font-weight: 500;
+      color: var(--gray); background: none; border: none;
+      border-bottom: 3px solid transparent; margin-bottom: -1px;
+      cursor: pointer; white-space: nowrap;
+      transition: color .15s, border-color .15s;
+    }
+    .tab:hover { color: var(--white); }
+    .tab.on { color: var(--lime); border-bottom-color: var(--lime); font-weight: 600; }
+
+    /* MAIN */
+    main { max-width: var(--w); margin: 0 auto; padding: 0 1.25rem; }
+    .view { display: none; padding-bottom: 4rem; }
+    .view.on { display: block; }
+    .lbl {
+      font-size: .68rem; font-weight: 700; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--gray); margin-bottom: .5rem;
+    }
+
+    /* HOME */
+    .hero { padding: 3rem 0 2.5rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; }
+    .kicker {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-size: .7rem; font-weight: 700; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--gray); margin-bottom: .8rem;
+    }
+    .kicker::before {
+      content: ''; display: block; width: 22px; height: 3px;
+      background: var(--lime); border-radius: 2px;
+    }
+    .hero h1 {
+      font-family: var(--fh); font-size: clamp(1.8rem,5vw,2.75rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -.03em; margin-bottom: 1rem;
+    }
+    .hero p { font-size: 1rem; color: var(--gray); max-width: 540px; line-height: 1.75; }
+
+    .aufbox {
+      background: var(--lime); border-radius: var(--rl);
+      padding: 1.75rem 2rem; margin-bottom: 2rem;
+      position: relative; overflow: hidden;
+    }
+    .aufbox::after {
+      content: '→';
+      position: absolute; right: 1.25rem; bottom: -.75rem;
+      font-family: var(--fh); font-size: 5rem; font-weight: 800;
+      color: rgba(0,0,0,.07); pointer-events: none;
+    }
+    .aufbox .lbl { color: rgba(0,0,0,.4); }
+    .aufbox p { font-size: 1rem; color: var(--black); font-weight: 500; line-height: 1.65; }
+    .aufbox ol { margin-top: .6rem; padding-left: 1.2rem; font-size: 1rem; color: var(--black); line-height: 1.9; }
+
+    .igrid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: .75rem; margin-bottom: 2rem;
+    }
+    .icard { background: var(--white); border-radius: var(--r); padding: 1rem 1.1rem; }
+    .ival {
+      font-family: var(--fh); font-size: 1.5rem; font-weight: 800;
+      line-height: 1; margin-bottom: .2rem;
+    }
+    .idesc { font-size: .73rem; color: var(--gray); }
+
+    .kgrid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(130px,1fr));
+      gap: .75rem; margin-bottom: 2rem;
+    }
+    .kbtn {
+      background: var(--white); border: 2px solid transparent;
+      border-radius: var(--r); padding: 1rem .75rem;
+      display: flex; flex-direction: column; align-items: center; gap: .55rem;
+      cursor: pointer; font-family: var(--fb);
+      transition: border-color .15s, transform .12s;
+    }
+    .kbtn:hover { border-color: var(--lime); transform: translateY(-2px); }
+    .av {
+      width: 52px; height: 52px; border-radius: 50%;
+      overflow: hidden; background: var(--bg);
+      border: 2px solid var(--border);
+    }
+    .av img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .kname { font-size: .8rem; font-weight: 600; color: var(--black); }
+    .zb {
+      font-size: .62rem; font-weight: 700; letter-spacing: .06em;
+      text-transform: uppercase; padding: .18rem .55rem; border-radius: 999px;
+    }
+    .z1 { background: #E5F7FA; color: var(--teal); }
+    .z2 { background: #FDF0F0; color: var(--coral); }
+    .z3 { background: #F5F6CC; color: var(--lime-dk); }
+
+    /* KIND PAGE */
+    .khead {
+      padding: 2.5rem 0 2rem;
+      display: flex; align-items: center; gap: 1.25rem;
+      border-bottom: 1px solid var(--border); margin-bottom: 1.75rem;
+    }
+    .avlg {
+      width: 72px; height: 72px; border-radius: 50%;
+      border: 3px solid var(--lime);
+      overflow: hidden; flex-shrink: 0; background: var(--bg);
+    }
+    .avlg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .kinfo h2 {
+      font-family: var(--fh); font-size: 1.7rem; font-weight: 800;
+      letter-spacing: -.02em; line-height: 1.2;
+    }
+    .kinfo .zb { margin-top: .3rem; display: inline-block; }
+
+    .imgf {
+      width: 100%; aspect-ratio: 4/3;
+      background: #D8D8D8; border-radius: var(--rl);
+      overflow: hidden; display: flex; align-items: center;
+      justify-content: center; margin-bottom: 1.75rem;
+    }
+    .imgf img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+    .acard {
+      background: var(--white); border-radius: var(--rl);
+      padding: 1.25rem 1.5rem; margin-bottom: 1.75rem;
+    }
+    .atitle { font-size: .875rem; font-weight: 600; margin-bottom: .85rem; }
+    .actrls { display: flex; align-items: center; gap: 1rem; }
+    .pbtn {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: var(--lime); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      transition: background .15s, transform .1s;
+    }
+    .pbtn:hover { background: var(--lime-dk); transform: scale(1.05); }
+    .pbtn:active { transform: scale(.96); }
+    .prog { flex: 1; display: flex; flex-direction: column; gap: .35rem; }
+    .ptrack {
+      height: 5px; background: var(--bg); border-radius: 3px;
+      cursor: pointer; position: relative; overflow: hidden;
+    }
+    .pfill {
+      position: absolute; left: 0; top: 0; bottom: 0; width: 0%;
+      background: var(--lime); border-radius: 3px;
+      transition: width .1s linear; pointer-events: none;
+    }
+    .ptimes {
+      display: flex; justify-content: space-between;
+      font-size: .7rem; color: var(--gray);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .ncard {
+      background: var(--white); border-radius: var(--rl);
+      padding: 1.25rem 1.5rem; margin-bottom: 1.75rem;
+    }
+    .ncard textarea {
+      width: 100%; border: none; outline: none; background: transparent;
+      font-family: var(--fb); font-size: .9rem; color: var(--black);
+      resize: vertical; min-height: 80px; line-height: 1.65;
+    }
+    .ncard textarea::placeholder { color: var(--gray); font-style: italic; }
+
+    .lnkbtn {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-family: var(--fb); font-size: .85rem; font-weight: 500;
+      color: var(--gray); background: var(--white);
+      border: 1.5px solid var(--border); border-radius: var(--r);
+      padding: .55rem 1rem; cursor: pointer;
+      transition: border-color .15s, color .15s;
+    }
+    .lnkbtn:hover { border-color: var(--lime); color: var(--black); }
+
+    /* KRITERIEN */
+    .phead { padding: 2.5rem 0 2rem; border-bottom: 1px solid var(--border); margin-bottom: 1.75rem; }
+    .phead h2 {
+      font-family: var(--fh); font-size: clamp(1.5rem,4vw,2rem);
+      font-weight: 800; letter-spacing: -.02em;
+    }
+    .phead p { color: var(--gray); font-size: .95rem; margin-top: .4rem; }
+
+    .ztabs { display: flex; gap: .5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+    .ztab {
+      padding: .45rem 1rem; border-radius: 999px;
+      font-size: .8rem; font-weight: 600; cursor: pointer; border: none;
+      transition: opacity .15s;
+    }
+    .ztab:not(.on) { opacity: .4; }
+    .ztab.z1 { background: #E5F7FA; color: var(--teal); }
+    .ztab.z2 { background: #FDF0F0; color: var(--coral); }
+    .ztab.z3 { background: #F5F6CC; color: var(--lime-dk); }
+
+    .raster { display: none; }
+    .raster.on { display: block; }
+    .kr {
+      background: var(--white); border-radius: var(--r);
+      padding: 1.1rem 1.5rem; margin-bottom: .75rem;
+      display: flex; gap: 1rem;
+    }
+    .krn {
+      font-family: var(--fh); font-size: 1.4rem; font-weight: 800;
+      line-height: 1; flex-shrink: 0; min-width: 1.8rem;
+    }
+    .krn.c1 { color: var(--teal); }
+    .krn.c2 { color: var(--coral); }
+    .krn.c3 { color: var(--lime-dk); }
+    .kr h3 { font-family: var(--fh); font-size: .92rem; font-weight: 700; margin-bottom: .2rem; }
+    .kr p { font-size: .855rem; color: var(--gray); line-height: 1.6; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border); padding: 1.75rem 1.25rem;
+      max-width: var(--w); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .flogo {
+      font-family: var(--fh); font-weight: 800; font-size: 1.1rem;
+    }
+    .flogo em { color: var(--lime); font-style: normal; }
+    footer small { font-size: .75rem; color: var(--gray); }
+
+    /* MOBILE */
+    @media (max-width: 520px) {
+      .brand { font-size: 1rem; padding-right: .6rem; }
+      .tab { padding: 0 .6rem; font-size: .76rem; }
+      .hero { padding: 2rem 0 1.75rem; }
+      .khead { flex-direction: column; text-align: center; }
+      footer { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="ni">
+    <a class="brand" href="#" onclick="sv('home');return false;">Bären<em>park</em></a>
+    <div class="tabs">
+      <button class="tab on"  data-v="home"      onclick="sv('home')">Übersicht</button>
+      <button class="tab"     data-v="kind-1"    onclick="sv('kind-1')">Kind 1</button>
+      <button class="tab"     data-v="kind-2"    onclick="sv('kind-2')">Kind 2</button>
+      <button class="tab"     data-v="kind-3"    onclick="sv('kind-3')">Kind 3</button>
+      <button class="tab"     data-v="kind-4"    onclick="sv('kind-4')">Kind 4</button>
+      <button class="tab"     data-v="kind-5"    onclick="sv('kind-5')">Kind 5</button>
+      <button class="tab"     data-v="kriterien" onclick="sv('kriterien')">Kriterien</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- ═══════════════════════ HOME ══════════════════════════ -->
+<div class="view on" id="view-home">
+  <div class="hero">
+    <div class="kicker">PHGR — Pädagogische Hochschule Graubünden</div>
+    <h1>Willkommen in der Bärenpark&#8209;App!</h1>
+    <p>Fünf Schülerinnen und Schüler aus drei Zyklen haben die gleiche Aufgabe gelöst. Hört rein, schaut hin — und beurteilt ein Lernprodukt anhand der Kriterien.</p>
+  </div>
+
+  <div class="igrid">
+    <div class="icard"><div class="ival" style="color:var(--teal)">2</div><div class="idesc">Kinder Zyklus&nbsp;1</div></div>
+    <div class="icard"><div class="ival" style="color:var(--coral)">2</div><div class="idesc">Kinder Zyklus&nbsp;2</div></div>
+    <div class="icard"><div class="ival" style="color:var(--lime-dk)">1</div><div class="idesc">Kind Zyklus&nbsp;3</div></div>
+  </div>
+
+  <div class="aufbox">
+    <div class="lbl">Auftrag</div>
+    <p>Verschafft euch einen Überblick über alle fünf Lernprodukte.</p>
+    <ol>
+      <li>Hört alle fünf Audiobeiträge an und betrachtet die Bilder.</li>
+      <li>Wählt <strong>ein</strong> Lernprodukt aus.</li>
+      <li>Beurteilt das gewählte Produkt mit dem passenden Beurteilungsraster.</li>
+    </ol>
+  </div>
+
+  <div class="lbl">Lernprodukte</div>
+  <div class="kgrid">
+    <button class="kbtn" onclick="sv('kind-1')">
+      <div class="av"><img src="bilder/Kind_1.jpg" alt="Kind 1"></div>
+      <span class="kname">Kind 1</span>
+      <span class="zb z1">Zyklus 1</span>
+    </button>
+    <button class="kbtn" onclick="sv('kind-2')">
+      <div class="av"><img src="bilder/Kind_2.jpg" alt="Kind 2"></div>
+      <span class="kname">Kind 2</span>
+      <span class="zb z1">Zyklus 1</span>
+    </button>
+    <button class="kbtn" onclick="sv('kind-3')">
+      <div class="av"><img src="bilder/Kind_3.jpg" alt="Kind 3"></div>
+      <span class="kname">Kind 3</span>
+      <span class="zb z2">Zyklus 2</span>
+    </button>
+    <button class="kbtn" onclick="sv('kind-4')">
+      <div class="av"><img src="bilder/Kind_4.jpg" alt="Kind 4"></div>
+      <span class="kname">Kind 4</span>
+      <span class="zb z2">Zyklus 2</span>
+    </button>
+    <button class="kbtn" onclick="sv('kind-5')">
+      <div class="av"><img src="bilder/Kind_5.jpg" alt="Kind 5"></div>
+      <span class="kname">Kind 5</span>
+      <span class="zb z3">Zyklus 3</span>
+    </button>
+  </div>
+</div>
+
+<!-- ═══════════════════════ KIND 1 ════════════════════════ -->
+<div class="view" id="view-kind-1">
+  <div class="khead">
+    <div class="avlg"><img src="bilder/Kind_1.jpg" alt="Kind 1"></div>
+    <div class="kinfo"><h2>Kind 1</h2><span class="zb z1">Zyklus 1</span></div>
+  </div>
+  <div class="lbl">Lernprodukt — Bild</div>
+  <div class="imgf"><img src="bilder/Kind_1.jpg" alt="Lernprodukt Kind 1"></div>
+  <div class="lbl">Lernprodukt — Audio</div>
+  <div class="acard">
+    <div class="atitle">Audiobeitrag Kind 1</div>
+    <audio id="a1" src="audio/Kind_1.mp3"></audio>
+    <div class="actrls">
+      <button class="pbtn" onclick="tog(1)" id="pb1" aria-label="Play/Pause">
+        <svg id="ic1" width="20" height="20" viewBox="0 0 24 24" fill="#1A1A1A"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <div class="prog">
+        <div class="ptrack" onclick="sk(event,1)"><div class="pfill" id="pf1"></div></div>
+        <div class="ptimes"><span id="ct1">0:00</span><span id="dt1">–:––</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">Meine Notizen</div>
+  <div class="ncard"><textarea id="nt1" placeholder="Notizen, Beobachtungen …" oninput="sn(1,this.value)"></textarea></div>
+  <button class="lnkbtn" onclick="sv('kriterien')">→ Zu den Beurteilungskriterien</button>
+</div>
+
+<!-- KIND 2 -->
+<div class="view" id="view-kind-2">
+  <div class="khead">
+    <div class="avlg"><img src="bilder/Kind_2.jpg" alt="Kind 2"></div>
+    <div class="kinfo"><h2>Kind 2</h2><span class="zb z1">Zyklus 1</span></div>
+  </div>
+  <div class="lbl">Lernprodukt — Bild</div>
+  <div class="imgf"><img src="bilder/Kind_2.jpg" alt="Lernprodukt Kind 2"></div>
+  <div class="lbl">Lernprodukt — Audio</div>
+  <div class="acard">
+    <div class="atitle">Audiobeitrag Kind 2</div>
+    <audio id="a2" src="audio/Kind_2.mp3"></audio>
+    <div class="actrls">
+      <button class="pbtn" onclick="tog(2)" id="pb2" aria-label="Play/Pause">
+        <svg id="ic2" width="20" height="20" viewBox="0 0 24 24" fill="#1A1A1A"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <div class="prog">
+        <div class="ptrack" onclick="sk(event,2)"><div class="pfill" id="pf2"></div></div>
+        <div class="ptimes"><span id="ct2">0:00</span><span id="dt2">–:––</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">Meine Notizen</div>
+  <div class="ncard"><textarea id="nt2" placeholder="Notizen …" oninput="sn(2,this.value)"></textarea></div>
+  <button class="lnkbtn" onclick="sv('kriterien')">→ Zu den Beurteilungskriterien</button>
+</div>
+
+<!-- KIND 3 -->
+<div class="view" id="view-kind-3">
+  <div class="khead">
+    <div class="avlg"><img src="bilder/Kind_3.jpg" alt="Kind 3"></div>
+    <div class="kinfo"><h2>Kind 3</h2><span class="zb z2">Zyklus 2</span></div>
+  </div>
+  <div class="lbl">Lernprodukt — Bild</div>
+  <div class="imgf"><img src="bilder/Kind_3.jpg" alt="Lernprodukt Kind 3"></div>
+  <div class="lbl">Lernprodukt — Audio</div>
+  <div class="acard">
+    <div class="atitle">Audiobeitrag Kind 3</div>
+    <audio id="a3" src="audio/Kind_3.mp3"></audio>
+    <div class="actrls">
+      <button class="pbtn" onclick="tog(3)" id="pb3" aria-label="Play/Pause">
+        <svg id="ic3" width="20" height="20" viewBox="0 0 24 24" fill="#1A1A1A"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <div class="prog">
+        <div class="ptrack" onclick="sk(event,3)"><div class="pfill" id="pf3"></div></div>
+        <div class="ptimes"><span id="ct3">0:00</span><span id="dt3">–:––</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">Meine Notizen</div>
+  <div class="ncard"><textarea id="nt3" placeholder="Notizen …" oninput="sn(3,this.value)"></textarea></div>
+  <button class="lnkbtn" onclick="sv('kriterien')">→ Zu den Beurteilungskriterien</button>
+</div>
+
+<!-- KIND 4 -->
+<div class="view" id="view-kind-4">
+  <div class="khead">
+    <div class="avlg"><img src="bilder/Kind_4.jpg" alt="Kind 4"></div>
+    <div class="kinfo"><h2>Kind 4</h2><span class="zb z2">Zyklus 2</span></div>
+  </div>
+  <div class="lbl">Lernprodukt — Bild</div>
+  <div class="imgf"><img src="bilder/Kind_4.jpg" alt="Lernprodukt Kind 4"></div>
+  <div class="lbl">Lernprodukt — Audio</div>
+  <div class="acard">
+    <div class="atitle">Audiobeitrag Kind 4</div>
+    <audio id="a4" src="audio/Kind_4.mp3"></audio>
+    <div class="actrls">
+      <button class="pbtn" onclick="tog(4)" id="pb4" aria-label="Play/Pause">
+        <svg id="ic4" width="20" height="20" viewBox="0 0 24 24" fill="#1A1A1A"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <div class="prog">
+        <div class="ptrack" onclick="sk(event,4)"><div class="pfill" id="pf4"></div></div>
+        <div class="ptimes"><span id="ct4">0:00</span><span id="dt4">–:––</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">Meine Notizen</div>
+  <div class="ncard"><textarea id="nt4" placeholder="Notizen …" oninput="sn(4,this.value)"></textarea></div>
+  <button class="lnkbtn" onclick="sv('kriterien')">→ Zu den Beurteilungskriterien</button>
+</div>
+
+<!-- KIND 5 -->
+<div class="view" id="view-kind-5">
+  <div class="khead">
+    <div class="avlg"><img src="bilder/Kind_5.jpg" alt="Kind 5"></div>
+    <div class="kinfo"><h2>Kind 5</h2><span class="zb z3">Zyklus 3</span></div>
+  </div>
+  <div class="lbl">Lernprodukt — Bild</div>
+  <div class="imgf"><img src="bilder/Kind_5.jpg" alt="Lernprodukt Kind 5"></div>
+  <div class="lbl">Lernprodukt — Audio</div>
+  <div class="acard">
+    <div class="atitle">Audiobeitrag Kind 5</div>
+    <audio id="a5" src="audio/Kind_5.mp3"></audio>
+    <div class="actrls">
+      <button class="pbtn" onclick="tog(5)" id="pb5" aria-label="Play/Pause">
+        <svg id="ic5" width="20" height="20" viewBox="0 0 24 24" fill="#1A1A1A"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <div class="prog">
+        <div class="ptrack" onclick="sk(event,5)"><div class="pfill" id="pf5"></div></div>
+        <div class="ptimes"><span id="ct5">0:00</span><span id="dt5">–:––</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="lbl">Meine Notizen</div>
+  <div class="ncard"><textarea id="nt5" placeholder="Notizen …" oninput="sn(5,this.value)"></textarea></div>
+  <button class="lnkbtn" onclick="sv('kriterien')">→ Zu den Beurteilungskriterien</button>
+</div>
+
+<!-- ═══════════════════════ KRITERIEN ═════════════════════ -->
+<div class="view" id="view-kriterien">
+  <div class="phead">
+    <div class="lbl">Beurteilung</div>
+    <h2>Beurteilungsraster</h2>
+    <p>Wähle den Zyklus des Lernprodukts, das du beurteilst.</p>
+  </div>
+
+  <div class="ztabs">
+    <button class="ztab z1 on" onclick="sr(1)">Zyklus 1</button>
+    <button class="ztab z2"    onclick="sr(2)">Zyklus 2</button>
+    <button class="ztab z3"    onclick="sr(3)">Zyklus 3</button>
+  </div>
+
+  <!-- RASTER 1 — ✏️ HIER KRITERIEN ZYKLUS 1 EINFÜGEN -->
+  <div class="raster on" id="r1">
+    <div class="kr"><div class="krn c1">1</div><div><h3>Kriterium 1</h3><p>Beschreibung … (Zyklus 1)</p></div></div>
+    <div class="kr"><div class="krn c1">2</div><div><h3>Kriterium 2</h3><p>Beschreibung …</p></div></div>
+    <div class="kr"><div class="krn c1">3</div><div><h3>Kriterium 3</h3><p>Beschreibung …</p></div></div>
+  </div>
+
+  <!-- RASTER 2 — ✏️ HIER KRITERIEN ZYKLUS 2 EINFÜGEN -->
+  <div class="raster" id="r2">
+    <div class="kr"><div class="krn c2">1</div><div><h3>Kriterium 1</h3><p>Beschreibung … (Zyklus 2)</p></div></div>
+    <div class="kr"><div class="krn c2">2</div><div><h3>Kriterium 2</h3><p>Beschreibung …</p></div></div>
+    <div class="kr"><div class="krn c2">3</div><div><h3>Kriterium 3</h3><p>Beschreibung …</p></div></div>
+  </div>
+
+  <!-- RASTER 3 — ✏️ HIER KRITERIEN ZYKLUS 3 EINFÜGEN -->
+  <div class="raster" id="r3">
+    <div class="kr"><div class="krn c3">1</div><div><h3>Kriterium 1</h3><p>Beschreibung … (Zyklus 3)</p></div></div>
+    <div class="kr"><div class="krn c3">2</div><div><h3>Kriterium 2</h3><p>Beschreibung …</p></div></div>
+    <div class="kr"><div class="krn c3">3</div><div><h3>Kriterium 3</h3><p>Beschreibung …</p></div></div>
+  </div>
+</div>
+
+</main>
+
+<footer>
+  <!-- ✏️ PHGR Logo: <img src="bilder/phgr_logo.png" alt="PHGR" style="height:28px"> -->
+  <div class="flogo"><em>ph</em>GR</div>
+  <small>Pädagogische Hochschule Graubünden</small>
+</footer>
+
+<script>
+// Navigation
+function sv(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  const v = document.getElementById('view-'+id);
+  const t = document.querySelector('[data-v="'+id+'"]');
+  if(v){ v.classList.add('on'); window.scrollTo(0,0); }
+  if(t) t.classList.add('on');
+  // stop all audio on navigation
+  [1,2,3,4,5].forEach(n=>{ const a=document.getElementById('a'+n); if(a&&!a.paused){a.pause();pi(n);} });
+  // restore note
+  const num = id.replace('kind-','');
+  const el = document.getElementById('nt'+num);
+  if(el) el.value = localStorage.getItem('n'+num)||'';
+}
+
+// Audio
+let cur = null;
+const fmt = s => !isFinite(s)?'–:––':Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
+const pi  = n => document.getElementById('ic'+n).innerHTML='<path d="M8 5v14l11-7z"/>';
+const pai = n => document.getElementById('ic'+n).innerHTML='<path d="M6 19h4V5H6zm8-14v14h4V5z"/>';
+
+function tog(n){
+  const a = document.getElementById('a'+n);
+  if(cur && cur!==a){ cur.pause(); pi(cur._n); }
+  if(a.paused){
+    a.play(); a._n=n; cur=a; pai(n);
+    a.ontimeupdate = ()=>{
+      const p = a.duration ? a.currentTime/a.duration*100 : 0;
+      document.getElementById('pf'+n).style.width=p+'%';
+      document.getElementById('ct'+n).textContent=fmt(a.currentTime);
+    };
+    a.onloadedmetadata = ()=>{ document.getElementById('dt'+n).textContent=fmt(a.duration); };
+    a.onended = ()=>{ pi(n); document.getElementById('pf'+n).style.width='0%'; };
+    if(a.readyState>=1) document.getElementById('dt'+n).textContent=fmt(a.duration);
+  } else {
+    a.pause(); pi(n);
+  }
+}
+function sk(e,n){
+  const a=document.getElementById('a'+n);
+  if(!a.duration) return;
+  const r=e.currentTarget.getBoundingClientRect();
+  const p=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));
+  a.currentTime=p*a.duration;
+  document.getElementById('pf'+n).style.width=(p*100)+'%';
+  document.getElementById('ct'+n).textContent=fmt(a.currentTime);
+}
+
+// Kriterien tabs
+function sr(n){
+  document.querySelectorAll('.raster').forEach(r=>r.classList.remove('on'));
+  document.querySelectorAll('.ztab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('r'+n).classList.add('on');
+  document.querySelectorAll('.ztab')[n-1].classList.add('on');
+}
+
+// Notes
+function sn(n,v){ localStorage.setItem('n'+n,v); }
+[1,2,3,4,5].forEach(n=>{ const el=document.getElementById('nt'+n); if(el) el.value=localStorage.getItem('n'+n)||''; });
+</script>
+</body>
+</html>
