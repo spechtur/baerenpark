@@ -107,10 +107,6 @@
       padding-right: 1.5rem; white-space: nowrap; flex-shrink: 0;
       gap: 1px;
     }
-    .brand-sub {
-      font-family: var(--fs); font-style: italic; font-size: .65rem;
-      font-weight: 400; color: var(--gray); letter-spacing: .01em;
-    }
     .brand-title {
       font-family: var(--fh); font-weight: 800; font-size: 1.25rem;
       letter-spacing: .03em; text-transform: uppercase; color: var(--white);
@@ -133,8 +129,7 @@
     .tab:hover { color: var(--white); }
     .tab.on { color: var(--lime); border-bottom-color: var(--lime); font-weight: 600; }
 
-    /* MAIN */
-    main { display: block; }
+    /* CONTENT */
     .view { display: none; padding-bottom: 4rem; }
     .view.on { display: block; }
     .lbl {
@@ -318,8 +313,8 @@
     .ztab.z2 { background: #FDF0F0; color: var(--coral); }
     .ztab.z3 { background: #F5F6CC; color: var(--lime-dk); }
 
-    .raster { display: none; }
-    .raster.on { display: block; }
+    .h3raster { display: none; }
+    .h3raster.on { display: block; }
     .kr {
       background: var(--white); border-radius: var(--r);
       padding: 1.1rem 1.5rem; margin-bottom: .75rem;
@@ -422,7 +417,6 @@
 <nav>
   <div class="ni">
     <a class="brand" href="#" onclick="sv('home');return false;">
-      <span class="brand-sub">Pädagogische Hochschule Graubünden</span>
       <span class="brand-title">Bären<em>park</em></span>
     </a>
     <div class="tabs">
@@ -432,7 +426,6 @@
       <button class="tab"     data-v="kind-3"    onclick="sv('kind-3')">Kind 3</button>
       <button class="tab"     data-v="kind-4"    onclick="sv('kind-4')">Kind 4</button>
       <button class="tab"     data-v="kind-5"    onclick="sv('kind-5')">Kind 5</button>
-      <button class="tab"     data-v="kriterien" onclick="sv('kriterien')">Kriterien</button>
     </div>
     <div class="mehr-wrap">
       <button class="mehr-btn" id="mehr-btn" onclick="toggleDD()" aria-haspopup="true" aria-expanded="false">
@@ -460,6 +453,8 @@
     </div>
   </div>
 </nav>
+
+<main>
 
 <!-- ═══════════════════════ HOME ══════════════════════════ -->
 <div class="view on" id="view-home">
@@ -720,17 +715,27 @@
     <div class="kicker">Pädagogische Hochschule Graubünden</div>
     <h2>Hinweis 3</h2>
     <p class="sub">Kompetenzraster</p>
-    <h3>Zyklus 1</h3>
-    <div class="raster-img-wrap">
-      <img src="raster/Zyklus_1.png" alt="Beurteilungsraster Zyklus 1">
+
+    <div class="ztabs">
+      <button class="ztab z1 on" onclick="sh3(1)">Zyklus 1</button>
+      <button class="ztab z2"    onclick="sh3(2)">Zyklus 2</button>
+      <button class="ztab z3"    onclick="sh3(3)">Zyklus 3</button>
     </div>
-    <h3>Zyklus 2</h3>
-    <div class="raster-img-wrap">
-      <img src="raster/Zyklus_2.png" alt="Beurteilungsraster Zyklus 2">
+
+    <div class="h3raster on" id="h3r1">
+      <div class="raster-img-wrap">
+        <img src="raster/Zyklus_1.png" alt="Beurteilungsraster Zyklus 1">
+      </div>
     </div>
-    <h3>Zyklus 3</h3>
-    <div class="raster-img-wrap">
-      <img src="raster/Zyklus_3.png" alt="Beurteilungsraster Zyklus 3">
+    <div class="h3raster" id="h3r2">
+      <div class="raster-img-wrap">
+        <img src="raster/Zyklus_2.png" alt="Beurteilungsraster Zyklus 2">
+      </div>
+    </div>
+    <div class="h3raster" id="h3r3">
+      <div class="raster-img-wrap">
+        <img src="raster/Zyklus_3.png" alt="Beurteilungsraster Zyklus 3">
+      </div>
     </div>
   </div>
 </div>
@@ -756,7 +761,6 @@
     <span class="flogo-sub">Pädagogische Hochschule Graubünden</span>
     <span class="flogo-name">PHGR</span>
   </div>
-  <small>Pädagogische Hochschule Graubünden</small>
 </footer>
 
 <script>
@@ -824,6 +828,14 @@ function sk(e,n){
   a.currentTime=p*a.duration;
   document.getElementById('pf'+n).style.width=(p*100)+'%';
   document.getElementById('ct'+n).textContent=fmt(a.currentTime);
+}
+
+// Hinweis-3 raster tabs (separate from Kriterien)
+function sh3(n){
+  document.querySelectorAll('.h3raster').forEach(r=>r.classList.remove('on'));
+  document.querySelectorAll('#view-hinweis-3 .ztab').forEach(t=>t.classList.remove('on'));
+  document.getElementById('h3r'+n).classList.add('on');
+  document.querySelectorAll('#view-hinweis-3 .ztab')[n-1].classList.add('on');
 }
 
 // Kriterien tabs
